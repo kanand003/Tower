@@ -5,21 +5,46 @@ using TMPro;
 [ExecuteAlways]
 public class CoordinateLabel : MonoBehaviour
 {
+    [SerializeField] Color defaultColor = Color.yellow;
+    [SerializeField] Color blockedColor = Color.blue;
+
     TextMeshPro label;
     Vector2Int coordinates = new Vector2Int();
+    Waypoint waypoint;
     void Awake()
     {
         label = GetComponent<TextMeshPro>();
+        label.enabled = false;
+        waypoint = GetComponentInParent<Waypoint>();
         DisplayCoordinates();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(!Application.isPlaying)
         {
             DisplayCoordinates();
             UpdateObjectName();
+        }
+        ColorCoordinates();
+        ToggleLabels();
+    }
+    void ColorCoordinates()
+    {
+        if(waypoint.IsPlaceable)
+        {
+            label.color = defaultColor;
+        }
+        else
+        {
+            label.color = blockedColor;
+        }
+    }
+    void ToggleLabels()
+    {
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            label.enabled = !label.IsActive();
         }
     }
     void DisplayCoordinates()
