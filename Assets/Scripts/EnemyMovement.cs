@@ -8,8 +8,28 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] [Range(0f,5f)] float speed = 1f;
     void Start()
     {
-        PrintWaypointName();
+        FindPath();
+        ReturnToStart();
+        //PrintWaypointName();
         StartCoroutine(PrintWaypointName());
+    }
+
+    void FindPath()
+    {
+        path.Clear();
+
+        GameObject[] waypoints = GameObject.FindGameObjectsWithTag("Path");
+
+        foreach(GameObject Waypoint in waypoints)
+        {
+            path.Add(Waypoint.GetComponent<Waypoint>());
+        }
+
+    }
+
+    void ReturnToStart()
+    {
+        transform.position = path[0].transform.position;
     }
 
     IEnumerator PrintWaypointName()
@@ -30,5 +50,6 @@ public class EnemyMovement : MonoBehaviour
             }
             
         }
+        Destroy(gameObject);
     }
 }
