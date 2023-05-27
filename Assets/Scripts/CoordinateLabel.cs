@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+
 [ExecuteAlways]
+[RequireComponent(typeof(TextMeshPro))]
 public class CoordinateLabel : MonoBehaviour
 {
     [SerializeField] Color defaultColor = Color.yellow;
@@ -26,10 +28,10 @@ public class CoordinateLabel : MonoBehaviour
             DisplayCoordinates();
             UpdateObjectName();
         }
-        ColorCoordinates();
+        SetLabelColour();
         ToggleLabels();
     }
-    void ColorCoordinates()
+    void SetLabelColour()
     {
         if(waypoint.IsPlaceable)
         {
