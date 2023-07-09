@@ -11,7 +11,12 @@ public class ObjectPool : MonoBehaviour
 
     GameObject[] pool;
 
-    private void Start()
+    void Awake()
+    {
+        PopulatePool();
+    }
+
+    void Start()
     {
         StartCoroutine(SpawnEnemy());
     }
@@ -29,7 +34,7 @@ public class ObjectPool : MonoBehaviour
 
     void EnableObjectinPool() // TODO Gives a NullRef
     {
-        for(int i=0; i<pool.Length;i++)
+        for (int i = 0; i < pool.Length; i++)
         {
             if (pool[i].activeInHierarchy == false)
             {
@@ -37,6 +42,7 @@ public class ObjectPool : MonoBehaviour
                 return;
             }
         }
+
     }
 
     IEnumerator SpawnEnemy()
